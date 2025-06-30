@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bot Control Panel</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <aside class="sidebar">
+        <div id="current-server" class="sidebar-header">
+          <img id="current-server-icon" src="" alt="" class="server-icon" />
+          <span id="current-server-name">Select a Server</span>
+        </div>
+        <nav class="sidebar-nav">
+          <a href="#" class="active"
+            ><i class="fa-solid fa-puzzle-piece fa-fw"></i> Plugins</a
+          >
+        </nav>
+        <div class="sidebar-footer">
+          <button id="add-server-btn" class="sidebar-btn">
+            <i class="fa-solid fa-plus fa-fw"></i> Add to Server
+          </button>
+          <button id="logout-btn" class="sidebar-btn logout">
+            <i class="fa-solid fa-right-from-bracket fa-fw"></i> Logout
+          </button>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="main-header">
+          <h2>Plugins</h2>
+        </header>
+
+        <div class="plugins-grid">
+          <div class="plugin-card" data-module="moderation">
+            <div class="plugin-header">
+              <i class="fa-solid fa-shield-halved"></i>
+              <h3>Moderation</h3>
+              <label class="switch" style="margin-left: auto"
+                ><input
+                  type="checkbox"
+                  data-setting="enabled"
+                  class="enable-toggle" /><span class="slider"></span
+              ></label>
+            </div>
+            <p class="plugin-description">
+              Keep your server safe with automated logging and moderation tools.
+            </p>
+            <div class="plugin-settings">
+              <label>Moderation Log Channel</label>
+              <p class="setting-description">
+                All moderation actions will be logged here.
+              </p>
+              <select
+                data-setting="logChannelId"
+                class="setting-select"
+              ></select>
+              <hr class="separator" />
+              <label>Protected Channels</label>
+              <p class="setting-description">
+                These channels cannot be deleted by anyone except the server
+                owner.
+              </p>
+              <div class="add-item-container">
+                <select id="channel-to-protect-select"></select>
+                <button
+                  id="add-protected-channel-btn"
+                  type="button"
+                  class="add-btn"
+                >
+                  Add
+                </button>
+              </div>
+
+          <div class="plugin-card" data-module="welcomeGoodbye">
+            <div class="plugin-header">
+              <i class="fa-solid fa-hand-sparkles"></i>
+              <h3>Welcome & Goodbye</h3>
+            </div>
+            <p class="plugin-description">
+              Set welcome and goodbye messages for members.
+            </p>
+            <div class="sub-plugin">
+              <div class="sub-plugin-header">
+                <h4>Welcome Message</h4>
+                <label class="switch"
+                  ><input
+                    type="checkbox"
+                    data-setting="welcomeEnabled"
+                    class="enable-toggle" /><span class="slider"></span
+                ></label>
+              </div>
+              <div class="plugin-settings">
+                <label>Welcome Channel</label>
+                <select
+                  data-setting="welcomeChannelId"
+                  class="setting-select"
+                ></select>
+                <label>Welcome Message</label>
+                <textarea
+                  data-setting="welcomeMessage"
+                  placeholder="Use {user} to mention."
+                ></textarea>
+              </div>
+            </div>
+            <div class="sub-plugin">
+              <div class="sub-plugin-header">
+                <h4>Goodbye Message</h4>
+                <label class="switch"
+                  ><input
+                    type="checkbox"
+                    data-setting="goodbyeEnabled"
+                    class="enable-toggle" /><span class="slider"></span
+                ></label>
+              </div>
+              <div class="plugin-settings">
+                <label>Goodbye Channel</label>
+                <select
+                  data-setting="goodbyeChannelId"
+                  class="setting-select"
+                ></select>
+                <label>Goodbye Message</label>
+                <textarea
+                  data-setting="goodbyeMessage"
+                  placeholder="Use {user_tag} or {user_name}"
+                ></textarea>
+              </div>
+            </div>
+            <button class="save-button">Save All Settings</button>
+          </div>
+
+          <div class="plugin-card" data-module="reactionRoles">
+            <div class="plugin-header">
+              <i class="fa-solid fa-masks-theater"></i>
+              <h3>Reaction Roles</h3>
+              <label class="switch" style="margin-left: auto"
+                ><input
+                  type="checkbox"
+                  data-setting="enabled"
+                  class="enable-toggle" /><span class="slider"></span
+              ></label>
+            </div>
+            <p class="plugin-description">
+              Let users get roles by reacting to a message.
+            </p>
+            <div class="plugin-settings">
+              <label>Channel with the Message</label>
+              <select data-setting="channelId" class="setting-select"></select>
+              <label>Message ID</label>
+              <input
+                type="text"
+                data-setting="messageId"
+                placeholder="Right-click message -> Copy Message ID"
+              />
+              <label>Emoji</label>
+              <input
+                type="text"
+                data-setting="emoji"
+                placeholder="e.g., ✅ or a custom emoji name"
+              />
+              <label>Role to Give</label>
+              <select data-setting="roleId" class="setting-select"></select>
+            </div>
+            <button class="save-button">Save & Add Reaction</button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div id="server-select-modal" class="modal-overlay">
+      <div class="modal-content">
+        <h2>Select a Server</h2>
+        <p>Choose a server where you have 'Manage Server' permissions.</p>
+        <div id="server-list" class="server-list-container"></div>
+      </div>
+    </div>
+
+    <script>
+      const CLIENT_ID = "<%= clientId %>";
+    </script>
+    <script src="/dashboard.js"></script>
+  </body>
+</html>
